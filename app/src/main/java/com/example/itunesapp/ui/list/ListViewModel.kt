@@ -1,12 +1,12 @@
 package com.example.itunesapp.ui.list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.itunesapp.common.BaseResponse
+import com.example.itunesapp.common.Resource
 import com.example.itunesapp.domain.usecase.SearchAllUseCase
+import com.example.itunesapp.model.SearchItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,17 +18,21 @@ import javax.inject.Inject
 class ListViewModel @Inject constructor(private val searchAllUseCase: SearchAllUseCase) :
     ViewModel() {
 
-     fun searchAll() = viewModelScope.launch {
-        searchAllUseCase().collect {
-            when (it) {
-                is BaseResponse.Success -> {
-                    Log.e("asda", it.data?.get(0)?.artistName.toString())
-                }
-                is BaseResponse.Error -> {
+    private val _errorMessage = MutableSharedFlow<String>()
+    val errorMessage: SharedFlow<String> = _errorMessage
 
-                }
-                is BaseResponse.Loading -> {
+    private val _resultList = MutableStateFlow<List<SearchItem>?>(null)
+    val resultList: StateFlow<List<SearchItem>?> = _resultList
 
+
+    fun searchAll(query: String = "all") = viewModelScope.launch {
+        searchAllUseCase(query).collect { response ->
+            when (response) {
+                is Resource.Success -> {
+                    _resultList.value = response.data
+                }
+                is Resource.Error -> {
+                    _errorMessage.emit(response.error.message)
                 }
             }
         }

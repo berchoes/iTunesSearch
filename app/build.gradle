@@ -20,12 +20,12 @@ android {
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
-
+            buildConfigField "String", "BASE_URL", "\"https://itunes.apple.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
+            buildConfigField "String", "BASE_URL", "\"https://itunes.apple.com/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -87,8 +87,12 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
-    //PICASSO
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    //GLIDE
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+    //ALERTER
+    implementation 'com.github.tapadoo:alerter:7.2.4'
 
     //NETWORK
     implementation 'com.google.code.gson:gson:2.8.7'

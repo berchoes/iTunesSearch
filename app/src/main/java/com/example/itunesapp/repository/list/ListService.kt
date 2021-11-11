@@ -10,5 +10,5 @@ import retrofit2.http.Query
 interface ListService {
 
     @GET("search")
-    suspend fun searchContent(@Query("entity") type: String? = null, @Query("term") query: String = "all") : ResponseModel
+    suspend fun searchContent(@Query("entity") type: String?, @Query("term") query: String) : ResponseModel
 }

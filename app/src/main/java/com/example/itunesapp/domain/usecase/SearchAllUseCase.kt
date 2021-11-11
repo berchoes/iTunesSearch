@@ -1,12 +1,11 @@
 package com.example.itunesapp.domain.usecase
 
-import com.example.itunesapp.common.BaseResponse
+import com.example.itunesapp.common.Resource
 import com.example.itunesapp.domain.repository.ListRepository
+import com.example.itunesapp.model.NetworkError
 import com.example.itunesapp.model.SearchItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -14,18 +13,20 @@ import javax.inject.Inject
  */
 class SearchAllUseCase @Inject constructor(private val repository: ListRepository) {
 
-    operator fun invoke(): Flow<BaseResponse<List<SearchItem>>> = flow {
+    operator fun invoke(query: String): Flow<Resource<List<SearchItem>>> = flow {
 
         try {
-            emit(BaseResponse.Loading())
-            val result = repository.getAllResults().results
-            emit(BaseResponse.Success(result))
+            val result = repository.searchContent(null, query).results
+            emit(Resource.Success(result))
 
-        } catch (e: HttpException) {
-            emit(BaseResponse.Error<List<SearchItem>>(e.localizedMessage ?: "Error"))
-
-        } catch (e: IOException) {
-            emit(BaseResponse.Error<List<SearchItem>>(e.localizedMessage ?: "No Internet"))
+        } catch (e: Exception) {
+            emit(
+                Resource.Error<List<SearchItem>>(
+                    NetworkError(
+                        e.localizedMessage ?: "An unexpected error occurred."
+                    )
+                )
+            )
         }
     }
 }

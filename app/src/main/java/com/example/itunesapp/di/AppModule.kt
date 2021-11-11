@@ -51,7 +51,7 @@ object AppModule {
         okHttpClient: OkHttpClient
     ) : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://itunes.apple.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
