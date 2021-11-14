@@ -9,6 +9,6 @@ import javax.inject.Inject
  */
 class ListRepositoryImpl @Inject constructor(private val service: ListService): ListRepository {
 
-    override suspend fun searchContent(type: String? , query: String): ResponseModel = service.searchContent(type,query)
+    override suspend fun search(type: String?, query: String): ResponseModel = service.searchContent(type,query)
 
 }

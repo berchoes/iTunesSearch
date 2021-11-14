@@ -18,13 +18,11 @@ inline fun <reified T : Any> newIntent(context: Context): Intent =
     Intent(context, T::class.java)
 
 inline fun <reified T : Any> Activity.launchActivity(
-    resultLauncher: ActivityResultLauncher<Intent>? = null,
-    activityOptionsCompat: ActivityOptionsCompat? = null,
-    noinline init: Intent.() -> Unit = {}
+    init: Intent.() -> Unit = {}
 ) {
     val intent = newIntent<T>(this)
     intent.init()
-    resultLauncher?.launch(intent, activityOptionsCompat) ?: startActivity(intent)
+    startActivity(intent)
 }
 
 fun Activity.showAlert(text: String) {

@@ -1,6 +1,4 @@
-package com.example.itunesapp.common
-
-import com.example.itunesapp.model.NetworkError
+package com.example.itunesapp.model
 
 /**
  * Created by Berk Ç. on 10.11.2021.

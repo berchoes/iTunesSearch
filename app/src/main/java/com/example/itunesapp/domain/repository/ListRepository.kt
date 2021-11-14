@@ -7,5 +7,5 @@ import com.example.itunesapp.model.ResponseModel
  */
 interface ListRepository {
 
-    suspend fun searchContent(type: String?,query: String): ResponseModel
+    suspend fun search(type: String?, query: String): ResponseModel
 }

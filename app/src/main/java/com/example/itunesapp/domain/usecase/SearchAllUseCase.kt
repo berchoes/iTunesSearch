@@ -1,6 +1,6 @@
 package com.example.itunesapp.domain.usecase
 
-import com.example.itunesapp.common.Resource
+import com.example.itunesapp.model.Resource
 import com.example.itunesapp.domain.repository.ListRepository
 import com.example.itunesapp.model.NetworkError
 import com.example.itunesapp.model.SearchItem
@@ -16,7 +16,7 @@ class SearchAllUseCase @Inject constructor(private val repository: ListRepositor
     operator fun invoke(query: String): Flow<Resource<List<SearchItem>>> = flow {
 
         try {
-            val result = repository.searchContent(null, query).results
+            val result = repository.search(null, query).results
             emit(Resource.Success(result))
 
         } catch (e: Exception) {

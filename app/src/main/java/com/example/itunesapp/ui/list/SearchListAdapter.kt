@@ -4,21 +4,19 @@ package com.example.itunesapp.ui.list
  * Created by Berk Ç. on 11.11.2021.
  */
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.itunesapp.databinding.ItemSearchListBinding
 import com.example.itunesapp.model.SearchItem
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 
-class SearchListAdapter @Inject constructor(@ApplicationContext private val context: Context) :
+class SearchListAdapter @Inject constructor() :
     RecyclerView.Adapter<SearchListAdapter.ViewHolder>() {
 
-    private var items = listOf<SearchItem>()
+    private var items = mutableListOf<SearchItem>()
     var onItemClicked: ((SearchItem) -> Unit)? = null
 
 
@@ -37,6 +35,14 @@ class SearchListAdapter @Inject constructor(@ApplicationContext private val cont
 
     override fun getItemCount() = items.size
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     inner class ViewHolder(private val binding: ItemSearchListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -46,7 +52,7 @@ class SearchListAdapter @Inject constructor(@ApplicationContext private val cont
             binding.title.text = "${item.artistName} - ${item.collectionName}"
 
             if (!item.artworkUrl100.isNullOrEmpty()) {
-                Glide.with(context)
+                Picasso.get()
                     .load(item.artworkUrl100)
                     .into(binding.image)
             }
@@ -60,8 +66,14 @@ class SearchListAdapter @Inject constructor(@ApplicationContext private val cont
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<SearchItem>?) {
         list?.let {
-            items = it
-            notifyDataSetChanged()
+            if(items.isEmpty()){
+                items.addAll(it)
+                notifyDataSetChanged()
+            }else{
+                val oldSize = items.size
+                items.addAll(it.drop(oldSize))
+                notifyItemRangeInserted(oldSize,it.size)
+            }
         }
     }
 }

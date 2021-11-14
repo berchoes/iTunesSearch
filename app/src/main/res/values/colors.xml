@@ -10,4 +10,6 @@
     <color name="darkBlue">#FF151C26</color>
     <color name="yellow">#FFF4C10F</color>
     <color name="crimson">#601010</color>
+    <color name="gray">#7984AD</color>
+    <color name="hint">#BDC1D4</color>
 </resources>

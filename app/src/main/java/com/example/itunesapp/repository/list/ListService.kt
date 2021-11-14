@@ -9,6 +9,6 @@ import retrofit2.http.Query
  */
 interface ListService {
 
-    @GET("search")
-    suspend fun searchContent(@Query("entity") type: String?, @Query("term") query: String) : ResponseModel
+    @GET("search?limit=200")
+    suspend fun searchContent(@Query("entity") type: String? , @Query("term") query: String) : ResponseModel
 }

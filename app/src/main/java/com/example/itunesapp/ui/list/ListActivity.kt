@@ -1,22 +1,29 @@
 package com.example.itunesapp.ui.list
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.itunesapp.R
 import com.example.itunesapp.base.BaseActivity
+import com.example.itunesapp.common.Constants
 import com.example.itunesapp.databinding.ActivityListBinding
+import com.example.itunesapp.ui.details.DetailsActivity
 import com.example.itunesapp.util.collect
+import com.example.itunesapp.util.gone
+import com.example.itunesapp.util.launchActivity
 import com.example.itunesapp.util.showAlert
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ListActivity : BaseActivity<ActivityListBinding>() {
+class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>() {
 
     @Inject
     lateinit var adapter: SearchListAdapter
 
-    private val viewModel: ListViewModel by viewModels()
+    override fun injectVM(): Lazy<ListViewModel> = viewModels()
 
     override fun getLayout(): Int = R.layout.activity_list
 
@@ -27,12 +34,43 @@ class ListActivity : BaseActivity<ActivityListBinding>() {
         viewModel.searchAll()
     }
 
-    override fun initListeners() {}
+    override fun initListeners() {
+        adapter.onItemClicked = {
+            launchActivity<DetailsActivity> {
+                putExtra(Constants.SEND_ITEM_TO_DETAIL_PAGE, gson.toJson(it))
+            }
+        }
 
-    private fun collectEvents(){
-        collect(viewModel.errorMessage){
+        binding.rvList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    viewModel.loadNewPage()
+                }
+            }
+        })
+    }
+
+    private fun collectEvents() {
+        collect(viewModel.errorMessage) {
             showAlert(it)
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        menuInflater.inflate(R.menu.menu, menu)
+        val menuItem = menu.findItem(R.id.search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.queryHint = getString(R.string.search)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+
+            override fun onQueryTextChange(newText: String?): Boolean = true
+        })
+
+        return super.onCreateOptionsMenu(menu)
+    }
 }

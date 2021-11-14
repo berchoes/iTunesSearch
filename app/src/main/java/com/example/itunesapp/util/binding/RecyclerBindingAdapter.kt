@@ -13,13 +13,13 @@ import com.example.itunesapp.ui.list.SearchListAdapter
 fun setRecyclerAdapter(
     recyclerView: RecyclerView,
     adapter: SearchListAdapter?,
-    items: List<SearchItem>?
+    items: Pair<List<SearchItem>?,Int>?,
 ) {
     adapter?.let {
         if (recyclerView.adapter != it) {
             recyclerView.adapter = it
         }
         recyclerView.recycledViewPool.clear()
-        it.submitList(items)
+        it.submitList(items?.first)
     }
 }
