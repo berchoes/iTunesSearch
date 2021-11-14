@@ -64,15 +64,26 @@ class SearchListAdapter @Inject constructor() :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(list: List<SearchItem>?) {
+    private fun whenListIsNotInitial(newData: List<SearchItem>, fromSearchBar: Boolean){
+        if (fromSearchBar) {
+            items.clear()
+            items.addAll(newData)
+            notifyDataSetChanged()
+        } else {
+            val oldSize = items.size
+            items.addAll(newData.drop(oldSize))
+            notifyItemRangeInserted(oldSize, newData.size)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(list: List<SearchItem>?, fromSearchBar: Boolean) {
         list?.let {
-            if(items.isEmpty()){
+            if (items.isEmpty()) {
                 items.addAll(it)
                 notifyDataSetChanged()
-            }else{
-                val oldSize = items.size
-                items.addAll(it.drop(oldSize))
-                notifyItemRangeInserted(oldSize,it.size)
+            } else {
+                whenListIsNotInitial(it,fromSearchBar)
             }
         }
     }

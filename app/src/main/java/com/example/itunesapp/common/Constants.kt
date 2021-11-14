@@ -5,4 +5,5 @@ package com.example.itunesapp.common
  */
 object Constants {
     const val SEND_ITEM_TO_DETAIL_PAGE = "SEND_ITEM_TO_DETAIL_PAGE"
+    const val SEARCH_ALL = "all"
 }

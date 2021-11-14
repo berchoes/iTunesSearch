@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="searchListAdapter"
             type="com.example.itunesapp.ui.list.SearchListAdapter" />
@@ -15,44 +16,88 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/darkBlue"
         android:layout_height="match_parent"
+        android:background="@color/darkBlue"
         tools:context=".ui.list.ListActivity">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
-            android:layout_width="match_parent"
+            onFilterTypeChange="@={viewModel.searchType}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:selectionRequired="false"
+            app:singleLine="true"
             app:singleSelection="true">
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip1"-->
-<!--                style="@style/MaydanozChipStyle"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="4dp"-->
-<!--                android:checked="@{viewModel.roomCount == roomCount.ONE}"-->
-<!--                android:elevation="4dp"-->
-<!--                android:paddingVertical="10dp"-->
-<!--                android:text="@string/plus1"-->
-<!--                android:textAppearance="@style/AppTheme.ChipTextStyle"-->
-<!--                app:chipEndPadding="16dp"-->
-<!--                app:chipStartPadding="15dp" />-->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMovies"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:elevation="4dp"
+                android:paddingVertical="10dp"
+                android:text="@string/movies"
+                android:textAppearance="@style/AppTheme.ChipTextStyle"
+                app:chipEndPadding="10dp"
+                app:chipStartPadding="10dp" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMusic"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:elevation="4dp"
+                android:paddingVertical="10dp"
+                android:text="@string/music"
+                android:textAppearance="@style/AppTheme.ChipTextStyle"
+                app:chipEndPadding="10dp"
+                app:chipStartPadding="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipPodcast"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:elevation="4dp"
+                android:paddingVertical="10dp"
+                android:text="@string/podcast"
+                android:textAppearance="@style/AppTheme.ChipTextStyle"
+                app:chipEndPadding="10dp"
+                app:chipStartPadding="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEbook"
+                style="@style/ChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:elevation="4dp"
+                android:paddingVertical="10dp"
+                android:text="@string/e_book"
+                android:textAppearance="@style/AppTheme.ChipTextStyle"
+                app:chipEndPadding="10dp"
+                app:chipStartPadding="10dp" />
 
         </com.google.android.material.chip.ChipGroup>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
-            android:layout_width="match_parent"
             setAdapter="@{searchListAdapter}"
-            setList="@{viewModel.resultList}"
-            android:foregroundGravity="center"
+            setList="@{viewModel.resultInfo}"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            isVisible="@{!viewModel.isEmptyResult()}"
+            android:foregroundGravity="center"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +105,21 @@
             app:layout_constraintTop_toBottomOf="@id/chipGroup"
             app:spanCount="2"
             tools:listitem="@layout/item_search_list" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNothingFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/nothing_to_show"
+            android:textColor="@color/yellow"
+            android:textSize="14sp"
+            isVisible="@{viewModel.isEmptyResult()}"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

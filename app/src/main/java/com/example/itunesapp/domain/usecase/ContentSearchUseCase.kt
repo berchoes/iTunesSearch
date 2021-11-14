@@ -11,12 +11,12 @@ import javax.inject.Inject
 /**
  * Created by Berk Ç. on 11.11.2021.
  */
-class SearchAllUseCase @Inject constructor(private val repository: ListRepository) {
+class ContentSearchUseCase @Inject constructor(private val repository: ListRepository) {
 
-    operator fun invoke(query: String): Flow<Resource<List<SearchItem>>> = flow {
+    operator fun invoke(type: String?,query: String): Flow<Resource<List<SearchItem>>> = flow {
 
         try {
-            val result = repository.search(null, query).results
+            val result = repository.search(type, query).results
             emit(Resource.Success(result))
 
         } catch (e: Exception) {

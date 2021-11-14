@@ -12,6 +12,11 @@ import com.example.itunesapp.util.collect
 import com.example.itunesapp.widget.LoadingDialog
 import com.google.gson.Gson
 import javax.inject.Inject
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by Berk Ç. on 10.11.2021.
@@ -34,7 +39,6 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> : AppCompa
         binding.lifecycleOwner = this
         collectBaseEvents()
         onCreateFinished(savedInstanceState)
-        initListeners()
     }
 
     private fun collectBaseEvents() {
@@ -57,9 +61,16 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> : AppCompa
         if (loadingDialog.isShowing) loadingDialog.dismiss()
     }
 
+    protected fun hideKeyboard() {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(
+            currentFocus?.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+    }
+
     protected abstract fun injectVM(): Lazy<VM>
     protected abstract fun getLayout(): Int
     protected abstract fun onCreateFinished(savedInstance: Bundle?)
-    protected abstract fun initListeners()
 
 }

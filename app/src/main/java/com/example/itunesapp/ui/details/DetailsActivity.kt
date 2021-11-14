@@ -19,8 +19,6 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsViewModel>()
         collectEvents()
     }
 
-    override fun initListeners() {}
-
     private fun collectEvents(){
         collect(viewModel.currentData){
             supportActionBar?.title = it?.artistName
