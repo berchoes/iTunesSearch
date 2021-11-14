@@ -60,15 +60,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     private fun hideLoading() {
         if (loadingDialog.isShowing) loadingDialog.dismiss()
     }
-
-    protected fun hideKeyboard() {
-        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(
-            currentFocus?.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
-    }
-
+    
     protected abstract fun injectVM(): Lazy<VM>
     protected abstract fun getLayout(): Int
     protected abstract fun onCreateFinished(savedInstance: Bundle?)

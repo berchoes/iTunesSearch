@@ -63,9 +63,6 @@ class ListActivity : BaseActivity<ActivityListBinding, ListViewModel>() {
                 fromSearchBar = true
             )
         }
-        collect(viewModel.resultInfo) {
-            hideKeyboard()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
