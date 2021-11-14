@@ -60,7 +60,7 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     private fun hideLoading() {
         if (loadingDialog.isShowing) loadingDialog.dismiss()
     }
-    
+
     protected abstract fun injectVM(): Lazy<VM>
     protected abstract fun getLayout(): Int
     protected abstract fun onCreateFinished(savedInstance: Bundle?)

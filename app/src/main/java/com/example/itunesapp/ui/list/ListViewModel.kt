@@ -5,7 +5,7 @@ import com.example.itunesapp.base.BaseViewModel
 import com.example.itunesapp.common.Constants
 import com.example.itunesapp.common.SearchTypes
 import com.example.itunesapp.domain.usecase.ContentSearchUseCase
-import com.example.itunesapp.model.Resource
+import com.example.itunesapp.common.Resource
 import com.example.itunesapp.model.SearchItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

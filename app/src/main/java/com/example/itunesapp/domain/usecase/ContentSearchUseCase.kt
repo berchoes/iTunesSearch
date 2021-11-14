@@ -1,6 +1,6 @@
 package com.example.itunesapp.domain.usecase
 
-import com.example.itunesapp.model.Resource
+import com.example.itunesapp.common.Resource
 import com.example.itunesapp.domain.repository.ListRepository
 import com.example.itunesapp.model.NetworkError
 import com.example.itunesapp.model.SearchItem
