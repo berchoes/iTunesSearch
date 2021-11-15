@@ -12,92 +12,132 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:background="@color/darkBlue"
-        tools:context=".ui.details.DetailsActivity">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivDetail"
-            loadImage="@{viewModel.currentData.artworkUrl100}"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="42dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvArtistNameHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginStart="32dp"
-            android:text="@string/artist_name"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivDetail" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.details.DetailsActivity">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvArtistName"
-            android:layout_width="0dp"
-            android:maxLines="2"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@{viewModel.currentData.artistName}"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tvReleaseDate"
-            app:layout_constraintTop_toTopOf="@id/tvArtistNameHeader" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivDetail"
+                    loadImage="@{viewModel.currentData.artworkUrl100}"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="42dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvCollectionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginTop="12dp"
-            android:text="@string/title"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvArtistName" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvArtistNameHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/artist_name"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivDetail" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvCollectionName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@{viewModel.currentData.collectionName}"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tvReleaseDate"
-            app:layout_constraintTop_toTopOf="@id/tvCollectionHeader" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvArtistName"
+                    android:layout_width="0dp"
+                    android:maxLines="2"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{viewModel.currentData.artistName}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="@id/tvReleaseDate"
+                    app:layout_constraintTop_toTopOf="@id/tvArtistNameHeader" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvReleaseDateHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            android:text="@string/release_date"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="32dp"
-            app:layout_constraintTop_toBottomOf="@id/tvCollectionName" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCollectionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvArtistName" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvReleaseDate"
-            android:layout_width="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="12dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@{viewModel.currentData.getDate()}"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@id/tvReleaseDateHeader"
-            app:layout_constraintTop_toTopOf="@id/tvReleaseDateHeader" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCollectionName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{viewModel.currentData.collectionName != null ? viewModel.currentData.collectionName : viewModel.currentData.trackName}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="@id/tvReleaseDate"
+                    app:layout_constraintTop_toTopOf="@id/tvCollectionHeader" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvReleaseDateHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/release_date"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvCollectionName" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvReleaseDate"
+                    android:layout_width="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{viewModel.currentData.getDate()}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@id/tvReleaseDateHeader"
+                    app:layout_constraintTop_toTopOf="@id/tvReleaseDateHeader" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDescriptionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    isVisible="@{viewModel.currentData.description != null}"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/description"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvReleaseDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:layout_height="wrap_content"
+                    isVisible="@{viewModel.currentData.description != null}"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@{viewModel.currentData.description}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="@id/tvReleaseDate"
+                    app:layout_constraintTop_toTopOf="@id/tvDescriptionHeader" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

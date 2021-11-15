@@ -32,6 +32,7 @@ data class SearchItem(
     val trackPrice: Double?,
     val trackTimeMillis: Int?,
     val trackViewUrl: String?,
+    val description : String?,
     val wrapperType: String?
 ) {
     fun getDate(): String = releaseDate?.take(10)?.replace("-","/") ?: "No info."

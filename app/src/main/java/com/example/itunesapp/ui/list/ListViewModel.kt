@@ -6,6 +6,7 @@ import com.example.itunesapp.common.Constants
 import com.example.itunesapp.common.SearchTypes
 import com.example.itunesapp.domain.usecase.ContentSearchUseCase
 import com.example.itunesapp.common.Resource
+import com.example.itunesapp.model.NewListInfo
 import com.example.itunesapp.model.SearchItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -31,8 +32,8 @@ class ListViewModel @Inject constructor(
     private val _errorMessage = MutableSharedFlow<String>()
     val errorMessage: SharedFlow<String> = _errorMessage
 
-    private val _resultInfo = MutableStateFlow<Triple<List<SearchItem>?, String,Boolean>?>(null)
-    val resultInfo: StateFlow<Triple<List<SearchItem>?,String,Boolean>?> = _resultInfo
+    private val _resultInfo = MutableStateFlow<NewListInfo?>(null)
+    val resultInfo: StateFlow<NewListInfo?> = _resultInfo
 
     //triggered by the inverse binding adapter(in ChipGroupBindingAdapter.kt) when chip selection changes.
     val searchType = MutableStateFlow(SearchTypes.ALL)
@@ -64,7 +65,7 @@ class ListViewModel @Inject constructor(
     fun loadNewPage(fromSearchBar: Boolean = false) = viewModelScope.launch {
         if(fromSearchBar) pagedList.clear()
         pagedList.addAll(fullList.take(25))
-        _resultInfo.value = Triple(pagedList,generateUniqueListID(),fromSearchBar)
+        _resultInfo.value = NewListInfo(pagedList,generateUniqueListID(),fromSearchBar)
         fullList = fullList.drop(25).toMutableList()
     }
 

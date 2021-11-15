@@ -49,7 +49,7 @@ class SearchListAdapter @Inject constructor() :
         @SuppressLint("SetTextI18n")
         fun bind(item: SearchItem) {
 
-            binding.title.text = "${item.artistName} - ${item.collectionName}"
+            binding.title.text = "${item.artistName} - ${item.collectionName ?: item.trackName}"
 
             if (!item.artworkUrl100.isNullOrEmpty()) {
                 Picasso.get()

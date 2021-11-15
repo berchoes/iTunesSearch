@@ -2,6 +2,7 @@ package com.example.itunesapp.util.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.itunesapp.model.NewListInfo
 import com.example.itunesapp.model.SearchItem
 import com.example.itunesapp.ui.list.SearchListAdapter
 
@@ -13,13 +14,13 @@ import com.example.itunesapp.ui.list.SearchListAdapter
 fun setRecyclerAdapter(
     recyclerView: RecyclerView,
     adapter: SearchListAdapter?,
-    itemsInfo: Triple<List<SearchItem>?,String,Boolean>?,
+    itemsInfo: NewListInfo?,
 ) {
     adapter?.let {
         if (recyclerView.adapter != it) {
             recyclerView.adapter = it
         }
         recyclerView.recycledViewPool.clear()
-        itemsInfo?.third?.let { third -> it.submitList(itemsInfo.first, third) }
+        itemsInfo?.let { info -> it.submitList(info.list,info.isSearchedList) }
     }
 }
